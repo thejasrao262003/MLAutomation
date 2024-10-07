@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: modeltraining-visualisation
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: visualisation
+  template:
+    metadata:
+      labels:
+        app: visualisation
+    spec:
+      containers:
+      - name: visualisation
+        image: thejasrao2003/modeltraining-visualisation:latest
+        ports:
+        - containerPort: 5002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: visualisation
+spec:
+  type: ClusterIP
+  selector:
+    app: visualisation
+  ports:
+  - protocol: TCP
+    port: 5002
+    targetPort: 5002

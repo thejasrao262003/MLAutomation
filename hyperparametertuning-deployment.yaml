@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: modeltraining-hyperparametertuning
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hyperparametertuning
+  template:
+    metadata:
+      labels:
+        app: hyperparametertuning
+    spec:
+      containers:
+      - name: hyperparametertuning
+        image: thejasrao2003/modeltraining-hyperparametertuning:latest
+        ports:
+        - containerPort: 5004
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hyperparametertuning
+spec:
+  type: ClusterIP
+  selector:
+    app: hyperparametertuning
+  ports:
+  - protocol: TCP
+    port: 5004
+    targetPort: 5004

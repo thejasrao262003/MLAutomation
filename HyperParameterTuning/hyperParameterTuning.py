@@ -17,11 +17,9 @@ def hyperParameterTuning():
     data = request.get_json()
     X_train = pd.DataFrame(data.get('X_train'))
     X_test = pd.DataFrame(data.get('X_test'))
-    y_train = pd.Series(data.get('y_train'))  # Convert to Series, not DataFrame
-    y_test = pd.Series(data.get('y_test'))  # Convert to Series, not DataFrame
+    y_train = pd.Series(data.get('y_train'))
+    y_test = pd.Series(data.get('y_test'))
     model = data.get('model')
-
-    # Call hyperparameter tuning function
     result = hyperparameter_tuning(model, X_train, y_train)
 
     return jsonify(result)
